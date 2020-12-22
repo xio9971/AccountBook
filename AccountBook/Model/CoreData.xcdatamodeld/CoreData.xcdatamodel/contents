@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17192" systemVersion="19F101" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="BudgetInfo" representedClassName="BudgetInfo" syncable="YES" codeGenerationType="class">
+        <attribute name="boudget" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="date" attributeType="String"/>
+    </entity>
+    <entity name="DataInfo" representedClassName="DataInfo" syncable="YES" codeGenerationType="class">
+        <attribute name="amount" optional="YES" attributeType="Integer 64" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="category" optional="YES" attributeType="String"/>
+        <attribute name="contents" optional="YES" attributeType="String"/>
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
+    </entity>
+    <elements>
+        <element name="BudgetInfo" positionX="-63" positionY="9" width="128" height="73"/>
+        <element name="DataInfo" positionX="-63" positionY="-18" width="128" height="103"/>
+    </elements>
+</model>
