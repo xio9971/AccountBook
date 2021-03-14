@@ -14,10 +14,6 @@
 		6CF7F15E24DAD6D30049175F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6CF7F15C24DAD6D30049175F /* Main.storyboard */; };
 		6CF7F16024DAD6D50049175F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CF7F15F24DAD6D50049175F /* Assets.xcassets */; };
 		6CF7F16324DAD6D50049175F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6CF7F16124DAD6D50049175F /* LaunchScreen.storyboard */; };
-		6CF7F16C24DAD7AB0049175F /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF7F16B24DAD7AB0049175F /* Transaction.swift */; };
-		6CF7F16E24DADBFB0049175F /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF7F16D24DADBFB0049175F /* Settings.swift */; };
-		6CF7F17024DADC7D0049175F /* TransactionDailyGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF7F16F24DADC7D0049175F /* TransactionDailyGroup.swift */; };
-		6CF7F17224DADF360049175F /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF7F17124DADF360049175F /* Storage.swift */; };
 		892A41C625628930000EB878 /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 892A41C425628930000EB878 /* CoreData.xcdatamodeld */; };
 		89877FAD2562ABC2001D39A2 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89877FAC2562ABC2001D39A2 /* DataManager.swift */; };
 		899CDB61255D378E00432FFF /* addViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899CDB60255D378E00432FFF /* addViewController.swift */; };
@@ -35,10 +31,6 @@
 		6CF7F15F24DAD6D50049175F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6CF7F16224DAD6D50049175F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6CF7F16424DAD6D50049175F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6CF7F16B24DAD7AB0049175F /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
-		6CF7F16D24DADBFB0049175F /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
-		6CF7F16F24DADC7D0049175F /* TransactionDailyGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDailyGroup.swift; sourceTree = "<group>"; };
-		6CF7F17124DADF360049175F /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		892A41C525628930000EB878 /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
 		89877FAC2562ABC2001D39A2 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		899CDB60255D378E00432FFF /* addViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addViewController.swift; sourceTree = "<group>"; };
@@ -93,10 +85,6 @@
 		6CF7F16A24DAD7340049175F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				6CF7F16B24DAD7AB0049175F /* Transaction.swift */,
-				6CF7F16F24DADC7D0049175F /* TransactionDailyGroup.swift */,
-				6CF7F17124DADF360049175F /* Storage.swift */,
-				6CF7F16D24DADBFB0049175F /* Settings.swift */,
 				89877FAC2562ABC2001D39A2 /* DataManager.swift */,
 				892A41C425628930000EB878 /* CoreData.xcdatamodeld */,
 			);
@@ -235,16 +223,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6CF7F17024DADC7D0049175F /* TransactionDailyGroup.swift in Sources */,
 				89877FAD2562ABC2001D39A2 /* DataManager.swift in Sources */,
-				6CF7F17224DADF360049175F /* Storage.swift in Sources */,
 				892A41C625628930000EB878 /* CoreData.xcdatamodeld in Sources */,
 				899CDB61255D378E00432FFF /* addViewController.swift in Sources */,
 				6CF7F15B24DAD6D30049175F /* ViewController.swift in Sources */,
 				6CF7F15724DAD6D30049175F /* AppDelegate.swift in Sources */,
-				6CF7F16C24DAD7AB0049175F /* Transaction.swift in Sources */,
 				6CF7F15924DAD6D30049175F /* SceneDelegate.swift in Sources */,
-				6CF7F16E24DADBFB0049175F /* Settings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -62,6 +62,14 @@ class DataManager {
         saveContext()
     }
     
+    func deleteData(_ data: DataInfo?) {
+        guard let data = data else {
+            return
+        }
+        context.delete(data)
+        saveContext()
+    }
+    
     func setBudget(_ date:String,_ budget: Int) {
         
         let request: NSFetchRequest<BudgetInfo> = BudgetInfo.fetchRequest()

@@ -146,6 +146,9 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="예산설정" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fJE-J4-ugA">
                                         <rect key="frame" x="5" y="19.5" width="59" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="59" id="9Vj-cW-lKu"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -178,8 +181,8 @@
                                             <action selector="setBudget:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OGS-qL-lAa"/>
                                         </connections>
                                     </button>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="S2P-qV-Jbb">
-                                        <rect key="frame" x="69" y="10" width="220" height="40"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="S2P-qV-Jbb">
+                                        <rect key="frame" x="66" y="10" width="220" height="40"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                     </textField>
@@ -202,11 +205,11 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="OT7-7s-MZd" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="15" id="4m3-Ny-yGm"/>
                             <constraint firstItem="hdu-mC-9Vz" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="8Qp-F0-7We"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Zcw-23-c01" secondAttribute="trailing" id="A71-gT-vkv"/>
-                            <constraint firstItem="hdu-mC-9Vz" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Fbi-zK-zbK"/>
                             <constraint firstItem="hdu-mC-9Vz" firstAttribute="top" secondItem="h6P-ul-j3F" secondAttribute="bottom" id="HkN-h2-cnF"/>
                             <constraint firstItem="hdu-mC-9Vz" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="IZp-zS-Gg1"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="fDt-9R-2OI" secondAttribute="trailing" constant="20" id="JaO-DJ-IV9"/>
@@ -216,16 +219,20 @@
                             <constraint firstItem="h6P-ul-j3F" firstAttribute="top" secondItem="Zcw-23-c01" secondAttribute="bottom" id="aQi-jG-565"/>
                             <constraint firstItem="Zcw-23-c01" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="fH3-0L-nFj"/>
                             <constraint firstItem="ggZ-26-dSI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="hEX-C6-dvG"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="hdu-mC-9Vz" secondAttribute="bottom" id="p5C-Df-AmC"/>
                             <constraint firstItem="fDt-9R-2OI" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="tRq-tn-fME"/>
                             <constraint firstItem="OT7-7s-MZd" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="uIg-dV-bMQ"/>
                             <constraint firstItem="Zcw-23-c01" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="80" id="vpZ-Cc-aI6"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="Mvl-MN-ju9" appends="YES" id="Lcg-Y0-tfR"/>
+                        </connections>
                     </view>
                     <tabBarItem key="tabBarItem" title="Main" image="pencil" catalog="system" id="f3O-sF-tdM"/>
                     <connections>
                         <outlet property="amountInfo" destination="pZh-pF-RTe" id="v17-De-WgN"/>
                         <outlet property="filed_budget" destination="S2P-qV-Jbb" id="mS7-91-7VA"/>
-                        <outlet property="inputViewBottom" destination="Fbi-zK-zbK" id="ytV-kM-sk2"/>
+                        <outlet property="inputViewBottom" destination="p5C-Df-AmC" id="Xkf-78-ETp"/>
                         <outlet property="lastMonth" destination="ggZ-26-dSI" id="gR0-CY-sn4"/>
                         <outlet property="listTableview" destination="h6P-ul-j3F" id="Ged-0h-X7w"/>
                         <outlet property="nextMonth" destination="fDt-9R-2OI" id="xMG-e6-wXQ"/>
@@ -234,6 +241,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="Mvl-MN-ju9">
+                    <connections>
+                        <action selector="tapBG:" destination="BYZ-38-t0r" id="XaN-nI-id1"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-197.10144927536234" y="856.47321428571422"/>
         </scene>
@@ -308,6 +320,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QPJ-6B-CHi">
                                 <rect key="frame" x="355" y="93" width="54" height="52"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="tintColor" systemColor="systemBlueColor"/>
                                 <state key="normal">
                                     <imageReference key="image" image="xmark.circle.fill" catalog="system" symbolScale="default"/>
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="46" scale="large"/>

@@ -61,7 +61,7 @@ class addViewController: UIViewController, UITextFieldDelegate, FSCalendarDelega
         sender.backgroundColor = UIColor.systemBlue
     }
     
-    
+    // 달력 set
     func setFiledDate() {
         
         // FSCalendar를 input view 로 셋팅
@@ -83,6 +83,7 @@ class addViewController: UIViewController, UITextFieldDelegate, FSCalendarDelega
         self.view.endEditing(true)
     }
     
+    // 저장
     @IBAction func save(_ sender: UIButton) {
 
         let dateFormatter = DateFormatter()
@@ -106,7 +107,7 @@ class addViewController: UIViewController, UITextFieldDelegate, FSCalendarDelega
         DataManager.shared.addData(date, amount, category, contents)
         //DataManager.shared.fetchData()
         
-        
+        // 클릭한 버튼에 따라서 분기
         switch sender {
         case save:
             dismiss(animated: true, completion: nil)
@@ -120,15 +121,19 @@ class addViewController: UIViewController, UITextFieldDelegate, FSCalendarDelega
         }
     }
     
-
+    // 초기화
     func setInit() {
     
+        // 선택된 분류가 있을경우, 선택된 분류 바탕색을 회색으로 변경
         if((preSelectedCategory) != nil) {
             preSelectedCategory.backgroundColor = UIColor.lightGray
         }
+        
+        // 선택된 분류가 첫번째 분류로 선택되게 하고 바탕색을 파랑색으로 변경
         preSelectedCategory = category1
         preSelectedCategory.backgroundColor = UIColor.systemBlue
         
+        // 금액, 내용, 날짜 초기화
         filed_Price.text = ""
         filed_Contents.text = ""
         filed_Date.text = ""

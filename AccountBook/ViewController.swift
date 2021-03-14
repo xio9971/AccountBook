@@ -34,16 +34,22 @@ class ViewController: UIViewController, UITableViewDataSource, UITextFieldDelega
         setAmountInfo()
     }
     
+    /**
+     1. 예산 / 지출금액 셋팅
+     2. 예산의 80% 이상 지출시 제일 많이 지츨한 분류를 찾아 경고메세지 출력
+     */
     func setAmountInfo() {
     
-        // 예산 / 지출 -- set strart --
+        // 예산
         var budget: Int = 0;
+        // 지출
         var totalOutlay: Int = 0;
-        
+        // str : 예산/ 지출
         var str: String = ""
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
         
+        // 예산 설정이 되있을 경우 예산 셋팅
         if(DataManager.shared.budgetInfo.count > 0) {
             budget = Int(DataManager.shared.budgetInfo[0].boudget)
             str += numberFormatter.string(from: NSNumber(value: budget))!
@@ -52,8 +58,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITextFieldDelega
             str += "0"
         }
     
-        //var categoryAmountArray1 = [0, 0, 0, 0, 0, 0, 0]
-        
         
         var categoryAmountArray = [(name: "대중교통", amount: 0), (name: "식사", amount: 0), (name: "보험", amount: 0), (name: "술자리", amount: 0), (name: "물건구입", amount: 0), (name: "커피", amount: 0), (name: "기타", amount: 0)]
         
@@ -87,18 +91,21 @@ class ViewController: UIViewController, UITableViewDataSource, UITextFieldDelega
             }
         }
         
+        // 경고금액 = 예산금액 80%
         let warningAmount = Int( Double(budget) * 0.8)
         var warningYn: Bool = false
         
+        // 경고메세지 여부 셋팅
         if budget != 0 && totalOutlay >= warningAmount {
             warningYn = true
         }
         
+        // 경고메세지 출력여부가 true 일 경우
+        // 제일 많이 지출된 분류를 찾는다
         if warningYn {
             var maxAmount = (name: categoryAmountArray[0].name, amount: categoryAmountArray[0].amount)
             
             for idx in 0..<categoryAmountArray.count {
-               
                 if(maxAmount.amount < categoryAmountArray[idx].amount) {
                     maxAmount.amount = categoryAmountArray[idx].amount
                     maxAmount.name = categoryAmountArray[idx].name
@@ -112,17 +119,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITextFieldDelega
         
         
         str += " / \(numberFormatter.string(from: NSNumber(value: totalOutlay))!)"
-        
         amountInfo.text = str
-
-        // 예산 / 지출 -- set end --
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        NotificationCenter.default.addObserver(self, selector: #selector(adjustInputView), name: UIResponder.keyboardWillShowNotification, object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(adjustInputView), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(adjustInputView), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(adjustInputView), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         currentDateSet()
         // Do any additional setup after loading the view.
@@ -154,7 +158,31 @@ class ViewController: UIViewController, UITableViewDataSource, UITextFieldDelega
         cell.contents.text = DataManager.shared.dataList[indexPath.row].contents
         return cell
     }
+    
+    // true return 시 편집기능 활성화
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+ 
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
 
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // 테이블뷰에있는 셀 숫자와 데이터 배열에 있는 숫자가 같아야함
+            let target = DataManager.shared.dataList[indexPath.row]
+            DataManager.shared.deleteData(target)
+            DataManager.shared.dataList.remove(at: indexPath.row)
+            
+            // 테이블뷰에서 셀 삭제
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+
+    /**
+     현재 날짜 셋팅
+     */
     func currentDateSet() {
 //        let dateFomatter = DateFormatter()
 //        dateFomatter.dateFormat = "yyyy년 MM월"
@@ -166,6 +194,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITextFieldDelega
         selectedDate.setTitle("\(year)년 \(month)월", for: .normal)
     }
     
+    /**
+     왼쪽 화살표 클릭, 지난달 선택
+     */
     @IBAction func click_LastMonth(_ sender: UIButton) {
         
         if month == 1 {
@@ -178,7 +209,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITextFieldDelega
         selectedDate.setTitle("\(year)년 \(month)월", for: .normal)
         viewWillAppear(true)
     }
-    
+
+    /**
+     오른쪽 화살표 클릭, 다음달 선택
+     */
     @IBAction func click_NextMonth(_ sender: UIButton) {
         
         if month == 12 {
@@ -192,15 +226,22 @@ class ViewController: UIViewController, UITableViewDataSource, UITextFieldDelega
         viewWillAppear(true)
     }
     
+    // TODO: - 상단 날짜 클릭시 년도, 1월 ~ 12월 선택 가능하도록
     @IBAction func click_SelectedDate(_ sender: UIButton) {
     }
     
-    
+    /**
+     예산설정, 예산을 입력하지 않았을경우 경고메세지  출력
+     */
     @IBAction func setBudget(_ sender: UIButton) {
         
-        
-        
-        guard let val = filed_budget.text?.replacingOccurrences(of: ",", with: ""), let amount = Int(val) else {
+        guard let val = filed_budget.text?.replacingOccurrences(of: ",", with: ""), let amount = Int(val)
+        else {
+            let alert = UIAlertController(title: "경고", message: "예산을 입력해 주세요.", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(okAction)
+            present(alert, animated: true, completion: nil)
+            
             return
         }
         
@@ -208,7 +249,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITextFieldDelega
         viewWillAppear(true)
         filed_budget.text = ""
     }
-    
     
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -254,42 +294,31 @@ class ViewController: UIViewController, UITableViewDataSource, UITextFieldDelega
         return true
     }
     
+    // view 아무곳이나 선택시 키보드 내려 가도록함
+    @IBAction func tapBG(_ sender: Any) {
+        filed_budget.resignFirstResponder()
+    }
+    
+    
 }
 
-//extension ViewController {
-//    @objc private func adjustInutView(noti: Notification) {
-//        guard let userInfo = noti.userInfo else {
-//            return
-//        }
-//
-//        guard let keyboardFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
-//            return
-//        }
-//
-//        if noti.name == UIResponder.keyboardWillShowNotification {
-//            let adjustmentHeight = keyboardFrame.height - view.safeAreaInsets.bottom
-//            inputview
-//        }else {
-//
-//        }
-//    }
-//}
-//extension ViewController {
-//    @objc private func adjustInputView(noti: Notification) {
-//        guard let userInfo = noti.userInfo else { return }
-//        // [x] TODO: 키보드 높이에 따른 인풋뷰 위치 변경
-//        guard let keyboardFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
-//
-//        if noti.name == UIResponder.keyboardWillShowNotification {
-//            let adjustmentHeight = keyboardFrame.height - view.safeAreaInsets.bottom
-//            inputViewBottom.constant = adjustmentHeight
-//        } else {
-//            inputViewBottom.constant = 0
-//        }
-//
-//        print("---> Keyboard End Frame: \(keyboardFrame)")
-//    }
-//}
+extension ViewController {
+    @objc private func adjustInputView(noti: Notification) {
+        guard let userInfo = noti.userInfo else { return }
+        // [x] TODO: 키보드 높이에 따른 인풋뷰 위치 변경
+        guard let keyboardFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+
+        if noti.name == UIResponder.keyboardWillShowNotification {
+            let adjustmentHeight = keyboardFrame.height - view.safeAreaInsets.bottom
+            inputViewBottom.constant = adjustmentHeight
+            print(adjustmentHeight)
+        } else {
+            inputViewBottom.constant = 0
+        }
+        
+        print("---> Keyboard End Frame: \(keyboardFrame)")
+    }
+}
 
 class ListCell: UITableViewCell {
     
